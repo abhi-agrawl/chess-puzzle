@@ -67,7 +67,9 @@ public class ChessPuzzleState {
         return true;
     }
 
-    public boolean canMoveToEmptySpace(String chessPieceClicked){
+    public boolean canMoveToEmptySpace(int row, int col){
+
+        String chessPieceClicked = currentState[row][col];
 
         if(chessPieceClicked.equals("King"))
             if (canMoveHorizontalAndVertical(currentKing) || canMoveDiagonal(currentKing)){
@@ -118,7 +120,9 @@ public class ChessPuzzleState {
         return selectedMove[0] + i == currentEmpty[0] && selectedMove[1] - 1 == currentEmpty[1];
     }
 
-    public void moveToEmptySpace(String chessPieceClicked){
+    public void moveToEmptySpace(int row, int col){
+
+        String chessPieceClicked = currentState[row][col];
 
         int[] selectedMove = new int[2];
 

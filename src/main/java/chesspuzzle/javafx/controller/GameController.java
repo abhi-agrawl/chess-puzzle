@@ -124,12 +124,10 @@ public class GameController {
         int row = GridPane.getRowIndex((Node) mouseEvent.getSource());
         int col = GridPane.getColumnIndex((Node) mouseEvent.getSource());
 
-        String chessPieceClicked = gameState.getCurrentState()[row][col];
-
-        if (gameState.canMoveToEmptySpace(chessPieceClicked)) {
+        if (gameState.canMoveToEmptySpace(row, col)) {
             steps.set(steps.get() + 1);
 
-            gameState.moveToEmptySpace(chessPieceClicked);
+            gameState.moveToEmptySpace(row, col);
 
             if (gameState.isGoalState()) {
                 gameOver.setValue(true);

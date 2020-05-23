@@ -46,12 +46,12 @@ class ChessPuzzleStateTest {
         ChessPuzzleState state = new ChessPuzzleState();
 
         assertEmptySpace(1,2, state);
-        assertFalse(state.canMoveToEmptySpace("King"));
-        assertTrue(state.canMoveToEmptySpace("White Bishop"));
-        assertFalse(state.canMoveToEmptySpace("Black Bishop"));
-        assertFalse(state.canMoveToEmptySpace("Rook 1"));
-        assertTrue(state.canMoveToEmptySpace("Rook 2"));
-        assertFalse(state.canMoveToEmptySpace("-"));
+        assertFalse(state.canMoveToEmptySpace(0,0));
+        assertTrue(state.canMoveToEmptySpace(0,1));
+        assertFalse(state.canMoveToEmptySpace(0,2));
+        assertFalse(state.canMoveToEmptySpace(1,0));
+        assertTrue(state.canMoveToEmptySpace(1,1));
+        assertFalse(state.canMoveToEmptySpace(1,2));
     }
 
     @Test
@@ -61,25 +61,25 @@ class ChessPuzzleStateTest {
 
         assertEmptySpace(1,2, state); // just to make sure empty space is in right bottom corner
 
-        state.moveToEmptySpace("Rook 2"); // let's move the rook to empty space
+        state.moveToEmptySpace(1,1); // let's move the rook to empty space
         assertEmptySpace(1,1, state); // the empty space now should be (1,1)
 
-        state.moveToEmptySpace("King"); // let's move the king to empty space
+        state.moveToEmptySpace(0,0); // let's move the king to empty space
         assertEmptySpace(0,0, state); // the empty space now should be (0, 0)
 
-        state.moveToEmptySpace("Rook 1"); // let's move the rook to empty space
+        state.moveToEmptySpace(1,0); // let's move the rook to empty space
         assertEmptySpace(1,0, state); // the empty space now should be (1,0)
 
-        state.moveToEmptySpace("White Bishop"); // let's move the bishop to empty space
+        state.moveToEmptySpace(0,1); // let's move the bishop to empty space
         assertEmptySpace(0,1, state); // the empty space now should be (0,1)
 
-        state.moveToEmptySpace("King"); // let's move the king to empty space
+        state.moveToEmptySpace(1,1); // let's move the king to empty space
         assertEmptySpace(1,1, state); // the empty space now should be (1,1) again
 
-        state.moveToEmptySpace("Black Bishop"); // let's move the bishop to empty space
+        state.moveToEmptySpace(0,2); // let's move the bishop to empty space
         assertEmptySpace(0,2, state); // the empty space now should be (0,2)
 
-        state.moveToEmptySpace("Rook 2"); // let's move the rook to empty space
+        state.moveToEmptySpace(1,2); // let's move the rook to empty space
         assertEmptySpace(1,2, state); //// the empty space now should be (1,2) again
 
     }
