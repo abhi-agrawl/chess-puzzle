@@ -2,8 +2,6 @@ package chesspuzzle.state;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ChessPuzzleStateTest {
@@ -87,14 +85,16 @@ class ChessPuzzleStateTest {
     @Test
     void testToString() {
         ChessPuzzleState state = new ChessPuzzleState();
+        StringBuilder stringBuilder = new StringBuilder();
 
-        assertEquals("ChessPuzzleState{" +
-                " currentBlackBishop=" + Arrays.toString(state.getCurrentBlackBishop()) +
-                ", currentWhiteBishop=" + Arrays.toString(state.getCurrentWhiteBishop()) +
-                ", currentKing=" + Arrays.toString(state.getCurrentKing()) +
-                ", currentRook1=" + Arrays.toString(state.getCurrentRook1()) +
-                ", currentRook2=" + Arrays.toString(state.getCurrentRook2()) +
-                ", currentEmpty=" + Arrays.toString(state.getCurrentEmpty()) +
-                '}', state.toString());
+        stringBuilder.append("----------------------------------------------\n");
+        for (int i=0; i<2;i++){
+            for(int j=0;j<3;j++){
+                stringBuilder.append("| ").append(state.getCurrentState()[i][j]);
+            }
+            stringBuilder.append("| \n----------------------------------------------\n");
+        }
+
+        assertEquals(stringBuilder.toString(), state.toString());
     }
 }

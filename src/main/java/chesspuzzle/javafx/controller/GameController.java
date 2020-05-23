@@ -106,7 +106,7 @@ public class GameController {
                 StackPane stackPane = (StackPane) gameGrid.getChildren().get(i * 3 + j);
                 ImageView view = (ImageView) stackPane.getChildren().get(0);
 
-                if(gameState.getCurrentState()[i][j].equals("King"))
+                if(gameState.getCurrentState()[i][j].contains("King"))
                     view.setImage(chessPieces.get(0));
 
                 if(gameState.getCurrentState()[i][j].contains("Bishop"))
@@ -115,7 +115,7 @@ public class GameController {
                 if(gameState.getCurrentState()[i][j].contains("Rook"))
                     view.setImage(chessPieces.get(2));
 
-                if(gameState.getCurrentState()[i][j].equals("-"))
+                if(gameState.getCurrentState()[i][j].contains("-"))
                     view.setImage(null);
             }
     }

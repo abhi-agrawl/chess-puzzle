@@ -2,8 +2,6 @@ package chesspuzzle.state;
 
 import lombok.Data;
 
-import java.util.Arrays;
-
 @Data
 public class ChessPuzzleState {
 
@@ -39,12 +37,12 @@ public class ChessPuzzleState {
     }
 
     private void setInitialState(){
-        currentState[currentKing[0]][currentKing[1]] = "King";
-        currentState[currentWhiteBishop[0]][currentWhiteBishop[1]] = "White Bishop";
-        currentState[currentBlackBishop[0]][currentBlackBishop[1]] = "Black Bishop";
-        currentState[currentRook1[0]][currentRook1[1]] = "Rook 1";
-        currentState[currentRook2[0]][currentRook2[1]] = "Rook 2";
-        currentState[currentEmpty[0]][currentEmpty[1]] = "-";
+        currentState[currentKing[0]][currentKing[1]] = "    King     ";
+        currentState[currentWhiteBishop[0]][currentWhiteBishop[1]] = "White Bishop ";
+        currentState[currentBlackBishop[0]][currentBlackBishop[1]] = "Black Bishop ";
+        currentState[currentRook1[0]][currentRook1[1]] = "   Rook 1    ";
+        currentState[currentRook2[0]][currentRook2[1]] = "   Rook 2    ";
+        currentState[currentEmpty[0]][currentEmpty[1]] = "     -       ";
     }
 
     public boolean isGoalState(){
@@ -71,25 +69,25 @@ public class ChessPuzzleState {
 
         String chessPieceClicked = currentState[row][col];
 
-        if(chessPieceClicked.equals("King"))
+        if(chessPieceClicked.contains("King"))
             if (canMoveHorizontalAndVertical(currentKing) || canMoveDiagonal(currentKing)){
                 return true;
             }
 
-        if(chessPieceClicked.equals("White Bishop"))
+        if(chessPieceClicked.contains("White Bishop"))
             if (canMoveDiagonal(currentWhiteBishop)){
                 return true;
             }
-        if(chessPieceClicked.equals("Black Bishop"))
+        if(chessPieceClicked.contains("Black Bishop"))
             if(canMoveDiagonal(currentBlackBishop)){
                 return true;
             }
 
-        if(chessPieceClicked.equals("Rook 1"))
+        if(chessPieceClicked.contains("Rook 1"))
             if(canMoveHorizontalAndVertical(currentRook1)) {
                 return true;
             }
-        if(chessPieceClicked.equals("Rook 2"))
+        if(chessPieceClicked.contains("Rook 2"))
             if(canMoveHorizontalAndVertical(currentRook2)) {
                 return true;
             }
@@ -126,19 +124,19 @@ public class ChessPuzzleState {
 
         int[] selectedMove = new int[2];
 
-        if(chessPieceClicked.equals("King"))
+        if(chessPieceClicked.contains("King"))
             selectedMove = currentKing;
 
-        if(chessPieceClicked.equals("White Bishop"))
+        if(chessPieceClicked.contains("White Bishop"))
             selectedMove = currentWhiteBishop;
 
-        if(chessPieceClicked.equals("Black Bishop"))
+        if(chessPieceClicked.contains("Black Bishop"))
             selectedMove = currentBlackBishop;
 
-        if(chessPieceClicked.equals("Rook 1"))
+        if(chessPieceClicked.contains("Rook 1"))
             selectedMove = currentRook1;
 
-        if(chessPieceClicked.equals("Rook 2"))
+        if(chessPieceClicked.contains("Rook 2"))
             selectedMove = currentRook2;
 
 
@@ -160,13 +158,22 @@ public class ChessPuzzleState {
 
     @Override
     public String toString() {
-        return "ChessPuzzleState{" +
-                " currentBlackBishop=" + Arrays.toString(currentBlackBishop) +
-                ", currentWhiteBishop=" + Arrays.toString(currentWhiteBishop) +
-                ", currentKing=" + Arrays.toString(currentKing) +
-                ", currentRook1=" + Arrays.toString(currentRook1) +
-                ", currentRook2=" + Arrays.toString(currentRook2) +
-                ", currentEmpty=" + Arrays.toString(currentEmpty) +
-                '}';
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("----------------------------------------------\n");
+
+        for (int i=0; i<2;i++){
+            for(int j=0;j<3;j++){
+                stringBuilder.append("| ").append(currentState[i][j]);
+            }
+            stringBuilder.append("| \n----------------------------------------------\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    public static void main(String[] args) {
+        ChessPuzzleState chessPuzzleState = new ChessPuzzleState();
+        System.out.println(chessPuzzleState);
     }
 }
