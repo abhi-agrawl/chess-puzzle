@@ -27,6 +27,8 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <exec.cleanupDaemonThreads>false</exec.cleanupDaemonThreads>
         <exec.mainClass>chesspuzzle.javafx.Main</exec.mainClass>
+        <junit.jupiter.version>5.6.2</junit.jupiter.version>
+        <openclover.version>4.4.1</openclover.version>
     </properties>
     <dependencies>
         <dependency>
@@ -65,6 +67,12 @@
             <version>2.3.2</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -102,4 +110,35 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>clover</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.openclover</groupId>
+                        <artifactId>clover-maven-plugin</artifactId>
+                        <version>${openclover.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>instrument</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.openclover</groupId>
+                        <artifactId>clover-maven-plugin</artifactId>
+                        <version>${openclover.version}</version>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+    </profiles>
 </project>
