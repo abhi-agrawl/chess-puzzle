@@ -15,7 +15,7 @@ public class GameResult {
 
     private PlayersList playersList = new PlayersList();
 
-    public GameResult() {
+    public List<Player> readFromFile(){
 
         try {
             this.playersList = JAXBHelper.fromXML(PlayersList.class, new FileInputStream("topPlayerList.xml"));
@@ -24,12 +24,12 @@ public class GameResult {
         }catch (JAXBException ex){
             ex.printStackTrace();
         }
-
+        return this.playersList.getPlayerList();
     }
 
     public void createGameResult(String player, int steps, String duration, String created) {
 
-        List<Player> players = this.playersList.getPlayerList();
+        List<Player> players = readFromFile();
 
         players.add(new Player(player, steps, duration, created));
         Collections.sort(players);
@@ -41,9 +41,5 @@ public class GameResult {
         } catch (JAXBException | FileNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    public List<Player> getPlayersList() {
-        return this.playersList.getPlayerList();
     }
 }

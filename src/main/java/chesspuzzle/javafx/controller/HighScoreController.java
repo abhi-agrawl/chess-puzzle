@@ -24,6 +24,8 @@ public class HighScoreController {
 
     private FXMLLoader fxmlLoader = new FXMLLoader();
 
+    private GameResult gameResult = new GameResult();
+
     @FXML
     private TableView<Player> highScoreTable;
 
@@ -41,7 +43,7 @@ public class HighScoreController {
 
     @FXML
     private void initialize() {
-        List<Player> highScoreList = new GameResult().getPlayersList()
+        List<Player> highScoreList = gameResult.readFromFile()
                 .stream()
                 .limit(10)
                 .collect(Collectors.toList());

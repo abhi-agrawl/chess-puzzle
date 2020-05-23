@@ -1,5 +1,10 @@
 package chesspuzzle.state;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
 public class ChessPuzzleState {
 
     private String[][] currentState = new String[2][3];
@@ -138,7 +143,4 @@ public class ChessPuzzleState {
 
     }
 
-    public String[][] getCurrentState() {
-        return currentState;
-    }
 }
