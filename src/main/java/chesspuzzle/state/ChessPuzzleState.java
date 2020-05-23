@@ -1,8 +1,10 @@
 package chesspuzzle.state;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
+@Slf4j
 public class ChessPuzzleState {
 
     private String[][] currentState = new String[2][3];
@@ -121,6 +123,8 @@ public class ChessPuzzleState {
     public void moveToEmptySpace(int row, int col){
 
         String chessPieceClicked = currentState[row][col];
+
+        log.info("Chess Piece({}) at ({},{}) is moved to empty place.",chessPieceClicked,row, col);
 
         int[] selectedMove = new int[2];
 

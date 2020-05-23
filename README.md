@@ -19,6 +19,7 @@
 - Project have reasonable GUI using [OpenJFX](https://openjfx.io/) and is implemented according to *MVC Architectural Pattern*.
 - The software stores data in *XML file* using [JAXB](https://docs.oracle.com/javase/tutorial/jaxb/intro/index.html).
 - The project uses [JUnit5](https://junit.org/junit5/) for unit testing the [ChessPuzzleState](src/main/java/chesspuzzle/state/ChessPuzzleState.java) class.
+- The project used [SLF4J](http://www.slf4j.org/) with [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) for logging.
 
 ### Requirements
 Building the project requires JDK 11 or later and [Apache Maven](https://maven.apache.org/)

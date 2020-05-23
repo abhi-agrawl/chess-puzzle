@@ -24,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+@Slf4j
 public class GameController {
 
 
@@ -82,6 +84,7 @@ public class GameController {
         stepsLabel.textProperty().bind(steps.asString());
         gameOver.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
+                log.info("Game is over");
                 addResult();
                 stopWatchTimeline.stop();
             }
@@ -106,6 +109,10 @@ public class GameController {
                 StackPane stackPane = (StackPane) gameGrid.getChildren().get(i * 3 + j);
                 ImageView view = (ImageView) stackPane.getChildren().get(0);
 
+                if (view.getImage() != null) {
+                    log.trace("Image({}, {}) = {}", i, j, view.getImage().getUrl());
+                }
+
                 if(gameState.getCurrentState()[i][j].contains("King"))
                     view.setImage(chessPieces.get(0));
 
@@ -124,6 +131,8 @@ public class GameController {
         int row = GridPane.getRowIndex((Node) mouseEvent.getSource());
         int col = GridPane.getColumnIndex((Node) mouseEvent.getSource());
 
+        log.debug("Chess Piece({}) at ({}, {}) is pressed", gameState.getCurrentState()[row][col] ,row, col);
+
         if (gameState.canMoveToEmptySpace(row, col)) {
             steps.set(steps.get() + 1);
 
@@ -131,6 +140,7 @@ public class GameController {
 
             if (gameState.isGoalState()) {
                 gameOver.setValue(true);
+                log.info("Player {} has solved the game in {} steps", playerName, steps.get());
                 messageLabel.setText("Congratulations, " + playerName + "!");
                 resetButton.setDisable(true);
                 giveUpButton.setText("Finish");
@@ -139,14 +149,23 @@ public class GameController {
         displayGameState();
     }
 
-    public void handleResetButton()  {
+    public void handleResetButton(ActionEvent actionEvent)  {
+        log.debug("{} is pressed", ((Button) actionEvent.getSource()).getText());
+        log.info("Resetting game...");
         stopWatchTimeline.stop();
         resetGame();
     }
 
     public void handleGiveUpButton(ActionEvent actionEvent) throws IOException {
 
+        String buttonText = ((Button) actionEvent.getSource()).getText();
+        log.debug("{} is pressed", buttonText);
+        if (buttonText.equals("Give Up")) {
+            log.info("The game has been given up");
+        }
+
         gameOver.setValue(true);
+        log.info("Loading high scores scene...");
         fxmlLoader.setLocation(getClass().getResource("/fxml/highscores.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -158,14 +177,18 @@ public class GameController {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG);
 
-        if(gameState.isGoalState())
-             new GameResult().createGameResult(
-                     playerName,
-                     steps.get(),
-                     DurationFormatUtils.
-                             formatDuration(Duration.between(startTime, Instant.now()).toMillis(),"H:mm:ss"),
-                     ZonedDateTime.now().format(formatter)
+        if(gameState.isGoalState()) {
+
+            log.debug("Saving result to XML file...");
+
+            new GameResult().createGameResult(
+                    playerName,
+                    steps.get(),
+                    DurationFormatUtils.
+                            formatDuration(Duration.between(startTime, Instant.now()).toMillis(), "H:mm:ss"),
+                    ZonedDateTime.now().format(formatter)
             );
+        }
     }
 
     private void createStopWatch() {
