@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import util.jaxb.JAXBHelper;
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,7 +17,8 @@ public class GameResult {
 
     private PlayersList playersList = new PlayersList();
 
-    private String fileName = "topPlayerList.xml";
+    private final String folderCreate = System.getProperty("user.home") + File.separator + ".chess-puzzle";
+    private final String fileName = folderCreate + "/topPlayerList.xml";
 
     public List<Player> readFromFile(){
 
@@ -24,6 +26,7 @@ public class GameResult {
             this.playersList = JAXBHelper.fromXML(PlayersList.class, new FileInputStream(fileName));
         }catch (FileNotFoundException ex){
             log.error("File ({}) Not Found Exception.", fileName);
+            new File(folderCreate).mkdir();
             this.playersList.setPlayerList(new ArrayList<>());
         }catch (JAXBException ex){
             log.error("JAXB Exception. Error message: \n{}", ex.toString());
