@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>hu.unideb.hu</groupId>
+    <groupId>hu.unideb.inf</groupId>
     <artifactId>chess-puzzle</artifactId>
     <version>1.0</version>
     <description>The chess puzzle game.</description>
     <scm>
-        <connection>https://github.com/abhi-agrawl/chess-puzzle.git</connection>
-        <developerConnection>https://github.com/abhi-agrawl/chess-puzzle.git</developerConnection>
+        <connection>scm:git:https://github.com/abhi-agrawl/chess-puzzle.git</connection>
+        <developerConnection>scm:git:https://github.com/abhi-agrawl/chess-puzzle.git</developerConnection>
     </scm>
     <developers>
         <developer>
