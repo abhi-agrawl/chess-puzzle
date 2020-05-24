@@ -41,12 +41,12 @@ public class Player implements Comparable<Player>{
     private String created;
 
     /**
-     * Overrides the compareTo function to sort on the
-     * basis of {@param} steps and {@param} duration.
+     * Overrides the {@code compareTo} function to sort on the
+     * basis of {@code steps} and {@code duration} .
      * @param o is a {@link Player} Object to compare with.
-     * @return {@code > 0} if Player o took less steps or took more time,
-     *         {@code = 0} if PLayer o took same steps and took same time,
-     *         {@code < 0} if Player o took more steps or took less time. .
+     * @return {@code 1} if {@code Player o} took less steps or more time,
+     *         {@code 0} if {@code Player o} took same steps and time,
+     *         {@code -1} if {@code Player o} took more steps or less time.
      */
     @Override
     public int compareTo(Player o) {

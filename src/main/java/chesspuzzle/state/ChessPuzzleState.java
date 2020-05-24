@@ -55,12 +55,12 @@ public class ChessPuzzleState {
     /**
      * Creates a {@code ChessPuzzleState} object which gets
      * the values of all the chess pieces and call the
-     * setInitialState method to set the value of {@param} currentState.
+     * {@code setInitialState} method to set the value of {@code currentState}.
      * @param currentBlackBishop is the position of bishop.
-     * @param currentWhiteBishop is the position of bishop.
+     * @param currentWhiteBishop is the position of other bishop.
      * @param currentKing is the position of king.
      * @param currentRook1 is the position of rook.
-     * @param currentRook2 is the position of rook.
+     * @param currentRook2 is the position of other rook.
      * @param currentEmpty is the position of empty.
      */
     public ChessPuzzleState(int[] currentBlackBishop, int[] currentWhiteBishop, int[] currentKing,
@@ -91,7 +91,7 @@ public class ChessPuzzleState {
 
     /**
      * Set the initial state of the chess pieces into
-     * an 2D array {@param} currentState
+     * an 2D array {@code currentState}
      */
     public void setInitialState(){
         currentState[currentKing[0]][currentKing[1]] = "    King     ";
@@ -254,7 +254,7 @@ public class ChessPuzzleState {
     }
 
     /**
-     * Overrides the toString method.
+     * Overrides the {@code toString} method.
      * @return {@code String} of the {@code ChessPuzzleState}
      *          object.
      */
