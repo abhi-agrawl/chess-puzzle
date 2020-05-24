@@ -91,7 +91,7 @@ public class ChessPuzzleState {
 
     /**
      * Set the initial state of the chess pieces into
-     * an 2D array {@code currentState}
+     * an 2D array {@code currentState}.
      */
     public void setInitialState(){
         currentState[currentKing[0]][currentKing[1]] = "    King     ";
@@ -274,6 +274,7 @@ public class ChessPuzzleState {
         return stringBuilder.toString();
     }
 
+    // CHECKSTYLE:OFF
     public static void main(String[] args) {
         ChessPuzzleState chessPuzzleState = new ChessPuzzleState();
         System.out.println(chessPuzzleState);

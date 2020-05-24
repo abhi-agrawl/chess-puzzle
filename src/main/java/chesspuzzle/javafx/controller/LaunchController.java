@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package chesspuzzle.javafx.controller;
 
 import javafx.event.ActionEvent;

@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package chesspuzzle.javafx;
 
 import javafx.application.Application;
