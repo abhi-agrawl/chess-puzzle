@@ -10,6 +10,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
+/**
+ * Class for creating the list of
+ * {@link Player} object.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -17,6 +21,9 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PlayersList {
 
+    /**
+     * List of {@link Player} object.
+     */
     @XmlElement(name = "player")
     private List<Player> playerList;
 

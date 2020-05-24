@@ -12,14 +12,35 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Class for reading and writing the
+ * GameResult to a file using {@link JAXBHelper}.
+ */
 @Slf4j
 public class GameResult {
 
+    /**
+     * {@link PlayersList} object creating a list to store
+     * all player's data.
+     */
     private PlayersList playersList = new PlayersList();
 
+    /**
+     * Gets the home directory of the user to save data.
+     */
     private final String folderCreate = System.getProperty("user.home") + File.separator + ".chess-puzzle";
+
+    /**
+     * Appends fileName to {@param} folderCreate.
+     */
     private final String fileName = folderCreate + "/topPlayerList.xml";
 
+    /**
+     * Reads the data from XML file using {@link JAXBHelper}.
+     * If there is no file then .chess-puzzle dir is created
+     * and sets the {@param} playersList to a new Array.
+     * @return {@code List} of player's Data of {@link Player} class.
+     */
     public List<Player> readFromFile(){
 
         try {
@@ -34,6 +55,13 @@ public class GameResult {
         return this.playersList.getPlayerList();
     }
 
+    /**
+     * Writes the data of the new player to the XML file.
+     * @param player name of the player
+     * @param steps number of steps made by the player
+     * @param duration of the game
+     * @param created timestamp when the result was saved
+     */
     public void createGameResult(String player, int steps, String duration, String created) {
 
         List<Player> players = readFromFile();
