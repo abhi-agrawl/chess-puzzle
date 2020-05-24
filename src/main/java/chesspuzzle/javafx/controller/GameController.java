@@ -84,9 +84,6 @@ public class GameController {
 
     private BooleanProperty gameOver = new SimpleBooleanProperty();
 
-    public GameController(){
-    }
-
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
