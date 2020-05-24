@@ -16,7 +16,10 @@ class ChessPuzzleStateTest {
     @Test
     void testIsGoalState() {
 
-        assertFalse(new ChessPuzzleState().isGoalState());
+        ChessPuzzleState state = new ChessPuzzleState();
+        state.setInitialState();
+        assertFalse(state.isGoalState());
+
 
         assertTrue(new ChessPuzzleState(new int[]{0,0},
                 new int[]{0,1}, new int[]{1,2},
@@ -42,6 +45,7 @@ class ChessPuzzleStateTest {
     @Test
     void testCanMoveToEmptySpace() {
         ChessPuzzleState state = new ChessPuzzleState();
+        state.setInitialState();
 
         assertEmptySpace(1,2, state);
         assertFalse(state.canMoveToEmptySpace(0,0));
@@ -56,6 +60,7 @@ class ChessPuzzleStateTest {
     void testMoveToEmptySpace() {
 
         ChessPuzzleState state = new ChessPuzzleState();
+        state.setInitialState();
 
         assertEmptySpace(1,2, state); // just to make sure empty space is in right bottom corner
 

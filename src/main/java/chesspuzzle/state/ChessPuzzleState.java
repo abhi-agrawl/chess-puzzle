@@ -53,9 +53,9 @@ public class ChessPuzzleState {
     private int[] currentEmpty;
 
     /**
-     * Constructor gets the values of all the chess pieces and
-     * call the setInitialState method to set the value of
-     * {@param} currentState.
+     * Creates a {@code ChessPuzzleState} object which gets
+     * the values of all the chess pieces and call the
+     * setInitialState method to set the value of {@param} currentState.
      * @param currentBlackBishop is the position of bishop.
      * @param currentWhiteBishop is the position of bishop.
      * @param currentKing is the position of king.
@@ -87,7 +87,6 @@ public class ChessPuzzleState {
         this.currentRook1 = new int[]{1,0};
         this.currentRook2 = new int[]{1,1};
         this.currentEmpty = new int[]{1,2};
-        setInitialState();
     }
 
     /**
