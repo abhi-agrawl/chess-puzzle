@@ -1,7 +1,9 @@
 // CHECKSTYLE:OFF
 package chesspuzzle.javafx.controller;
 
+import chesspuzzle.loadSave.LoadSave;
 import chesspuzzle.results.GameResult;
+import chesspuzzle.results.Player;
 import chesspuzzle.state.ChessPuzzleState;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -28,7 +30,11 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZonedDateTime;
@@ -44,10 +50,14 @@ public class GameController {
     private FXMLLoader fxmlLoader = new FXMLLoader();
 
     private String playerName;
-    private ChessPuzzleState gameState = new ChessPuzzleState();
+    private ChessPuzzleState gameState;
     private IntegerProperty steps = new SimpleIntegerProperty();
     private Instant startTime;
     private List<Image> chessPieces;
+
+    private LoadSave loadSave = new LoadSave();
+
+    private boolean isLoadGame;
 
     @FXML
     private Label messageLabel;
@@ -69,14 +79,20 @@ public class GameController {
     @FXML
     private Button giveUpButton;
 
+    @FXML
+    private Button saveButton;
+
     private BooleanProperty gameOver = new SimpleBooleanProperty();
+
+    public GameController(){
+    }
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
     @FXML
-    public void initialize() {
+    public void initialize(){
         chessPieces = List.of(
                 new Image(getClass().getResource("/images/king.png").toExternalForm()),
                 new Image(getClass().getResource("/images/bishop.png").toExternalForm()),
@@ -90,7 +106,35 @@ public class GameController {
                 stopWatchTimeline.stop();
             }
         });
-        resetGame();
+
+        try {
+            isLoadGame = Files.readString(Paths.get(loadSave.getLoadFile())).equals("true");
+        } catch (IOException e) {
+            log.error(e.toString());
+        }
+
+        if(isLoadGame) {
+            loadGame();
+            try{
+                new PrintStream(loadSave.getLoadFile()).print(false);
+            }catch (FileNotFoundException e) {
+                log.debug(e.toString());
+            }
+        }
+        else
+            resetGame();
+    }
+
+    private void loadGame()  {
+        loadSave.loadData();
+        gameState = loadSave.getChessPuzzleState();
+        gameState.setInitialState();
+        steps.set(loadSave.getPlayerData().getSteps());
+        startTime = Instant.now().minusMillis(10000);
+        gameOver.setValue(false);
+        displayGameState();
+        createStopWatch();
+        Platform.runLater(() -> messageLabel.setText("Good luck, " + playerName + "!"));
     }
 
     private void resetGame() {
@@ -145,6 +189,7 @@ public class GameController {
                 log.info("Player {} has solved the game in {} steps", playerName, steps.get());
                 messageLabel.setText("Congratulations, " + playerName + "!");
                 resetButton.setDisable(true);
+                saveButton.setDisable(true);
                 giveUpButton.setText("Finish");
             }
         }
@@ -162,9 +207,9 @@ public class GameController {
 
         String buttonText = ((Button) actionEvent.getSource()).getText();
         log.debug("{} is pressed", buttonText);
-        if (buttonText.equals("Give Up")) {
+        if (buttonText.equals("Give Up"))
             log.info("The game has been given up");
-        }
+
 
         gameOver.setValue(true);
         log.info("Loading high scores scene...");
@@ -173,6 +218,28 @@ public class GameController {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public void handleSaveButton(ActionEvent actionEvent){
+
+        log.debug("{} is pressed", ((Button) actionEvent.getSource()).getText());
+        gameOver.setValue(true);
+        messageLabel.setText("Game Saved");
+        saveButton.setDisable(true);
+        resetButton.setDisable(true);
+        giveUpButton.setText("Scores");
+        log.info("Saved Current Game.");
+
+        loadSave.saveData(
+                new Player(playerName, steps.get(), "",""),
+                new ChessPuzzleState(
+                        gameState.getCurrentBlackBishop(),
+                        gameState.getCurrentWhiteBishop(),
+                        gameState.getCurrentKing(),
+                        gameState.getCurrentRook1(),
+                        gameState.getCurrentRook2(),
+                        gameState.getCurrentEmpty())
+        );
     }
 
     private void addResult() {
@@ -187,7 +254,7 @@ public class GameController {
                     playerName,
                     steps.get(),
                     DurationFormatUtils.
-                            formatDuration(Duration.between(startTime, Instant.now()).toMillis(), "H:mm:ss"),
+                            formatDuration(Duration.between(startTime, Instant.now()).toMillis(), "HH:mm:ss"),
                     ZonedDateTime.now().format(formatter)
             );
         }

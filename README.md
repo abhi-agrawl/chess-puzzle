@@ -13,7 +13,8 @@
 
   ![Goal State](ReadmeSupport/goal.png) 
 
-- Game also keeps record of **Top 10** player in respect with ***Steps*** and ***Time Taken*** to complete the game.
+- Game keeps record of **Top 10** player in respect with ***Steps*** and ***Time Taken*** to complete the game.
+- Game have Load/Save feature. *Note: If previous game loaded, time will start from 10 seconds.* 
 
 ### Project Information
 - Project have reasonable GUI using [OpenJFX](https://openjfx.io/) and is implemented according to *MVC Architectural Pattern*.

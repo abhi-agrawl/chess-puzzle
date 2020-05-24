@@ -4,54 +4,65 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.xml.bind.annotation.*;
+
 /**
  * Class representing the state of the puzzle.
  */
 @NoArgsConstructor
 @Data
 @Slf4j
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "chessPuzzleState")
 public class ChessPuzzleState {
 
     /**
      * The 2D array representing the current state of
      * each chess piece.
      */
+    @XmlTransient
     private String[][] currentState = new String[2][3];
 
     /**
      * The array stores the current row and col
      * position of the one of the Bishop.
      */
+    @XmlList
     private int[] currentBlackBishop = new int[]{0,2};
 
     /**
      * The array stores the current row and col
      * position of the other Bishop.
      */
+    @XmlList
     private int[] currentWhiteBishop = new int[]{0,1};
 
     /**
      * The array stores the current row and col
      * position of the King.
      */
+    @XmlList
     private int[] currentKing = new int[]{0,0};
 
     /**
      * The array stores the current row and col
      * position of the one of the Rook.
      */
+    @XmlList
     private int[] currentRook1 = new int[]{1,0};
 
     /**
      * The array stores the current row and col
      * position of the other Bishop.
      */
+    @XmlList
     private int[] currentRook2 = new int[]{1,1};
 
     /**
      * The array stores the current row and col
      * position of the empty place.
      */
+    @XmlList
     private int[] currentEmpty = new int[]{1,2};
 
     /**

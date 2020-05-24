@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Class representing the result of a game played by a
@@ -16,6 +17,7 @@ import javax.xml.bind.annotation.XmlElement;
 @AllArgsConstructor
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "player")
 public class Player implements Comparable<Player>{
 
     /**
