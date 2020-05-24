@@ -1,11 +1,13 @@
 package chesspuzzle.state;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Class representing the state of the puzzle.
  */
+@NoArgsConstructor
 @Data
 @Slf4j
 public class ChessPuzzleState {
@@ -20,37 +22,37 @@ public class ChessPuzzleState {
      * The array stores the current row and col
      * position of the one of the Bishop.
      */
-    private int[] currentBlackBishop;
+    private int[] currentBlackBishop = new int[]{0,2};
 
     /**
      * The array stores the current row and col
      * position of the other Bishop.
      */
-    private int[] currentWhiteBishop;
+    private int[] currentWhiteBishop = new int[]{0,1};
 
     /**
      * The array stores the current row and col
      * position of the King.
      */
-    private int[] currentKing;
+    private int[] currentKing = new int[]{0,0};
 
     /**
      * The array stores the current row and col
      * position of the one of the Rook.
      */
-    private int[] currentRook1;
+    private int[] currentRook1 = new int[]{1,0};
 
     /**
      * The array stores the current row and col
      * position of the other Bishop.
      */
-    private int[] currentRook2;
+    private int[] currentRook2 = new int[]{1,1};
 
     /**
      * The array stores the current row and col
      * position of the empty place.
      */
-    private int[] currentEmpty;
+    private int[] currentEmpty = new int[]{1,2};
 
     /**
      * Creates a {@code ChessPuzzleState} object which gets
@@ -72,21 +74,6 @@ public class ChessPuzzleState {
         this.currentRook1 = currentRook1;
         this.currentRook2 = currentRook2;
         this.currentEmpty = currentEmpty;
-        setInitialState();
-    }
-
-    /**
-     * Creates a {@code ChessPuzzleState} object
-     * and sets the default values of
-     * each chess pieces.
-     */
-    public ChessPuzzleState() {
-        this.currentBlackBishop = new int[]{0,2};
-        this.currentWhiteBishop = new int[]{0,1};
-        this.currentKing = new int[]{0,0};
-        this.currentRook1 = new int[]{1,0};
-        this.currentRook2 = new int[]{1,1};
-        this.currentEmpty = new int[]{1,2};
     }
 
     /**
@@ -94,12 +81,12 @@ public class ChessPuzzleState {
      * an 2D array {@code currentState}.
      */
     public void setInitialState(){
-        currentState[currentKing[0]][currentKing[1]] = "    King     ";
-        currentState[currentWhiteBishop[0]][currentWhiteBishop[1]] = "White Bishop ";
-        currentState[currentBlackBishop[0]][currentBlackBishop[1]] = "Black Bishop ";
-        currentState[currentRook1[0]][currentRook1[1]] = "   Rook 1    ";
-        currentState[currentRook2[0]][currentRook2[1]] = "   Rook 2    ";
-        currentState[currentEmpty[0]][currentEmpty[1]] = "     -       ";
+        currentState[currentKing[0]][currentKing[1]] = "     King     ";
+        currentState[currentWhiteBishop[0]][currentWhiteBishop[1]] = " White Bishop ";
+        currentState[currentBlackBishop[0]][currentBlackBishop[1]] = " Black Bishop ";
+        currentState[currentRook1[0]][currentRook1[1]] = "    Rook 1    ";
+        currentState[currentRook2[0]][currentRook2[1]] = "    Rook 2    ";
+        currentState[currentEmpty[0]][currentEmpty[1]] = "      -       ";
     }
 
     /**
@@ -143,27 +130,19 @@ public class ChessPuzzleState {
         String chessPieceClicked = currentState[row][col];
 
         if(chessPieceClicked.contains("King"))
-            if (canMoveHorizontalAndVertical(currentKing) || canMoveDiagonal(currentKing)){
-                return true;
-            }
+            return canMoveHorizontalAndVertical(currentKing) || canMoveDiagonal(currentKing);
 
         if(chessPieceClicked.contains("White Bishop"))
-            if (canMoveDiagonal(currentWhiteBishop)){
-                return true;
-            }
+            return canMoveDiagonal(currentWhiteBishop);
+
         if(chessPieceClicked.contains("Black Bishop"))
-            if(canMoveDiagonal(currentBlackBishop)){
-                return true;
-            }
+            return canMoveDiagonal(currentBlackBishop);
 
         if(chessPieceClicked.contains("Rook 1"))
-            if(canMoveHorizontalAndVertical(currentRook1)) {
-                return true;
-            }
+            return canMoveHorizontalAndVertical(currentRook1);
+
         if(chessPieceClicked.contains("Rook 2"))
-            if(canMoveHorizontalAndVertical(currentRook2)) {
-                return true;
-            }
+            return canMoveHorizontalAndVertical(currentRook2);
 
         return false;
     }
@@ -267,9 +246,9 @@ public class ChessPuzzleState {
 
         for (int i=0; i<2;i++){
             for(int j=0;j<3;j++){
-                stringBuilder.append("| ").append(currentState[i][j]);
+                stringBuilder.append("|").append(currentState[i][j]);
             }
-            stringBuilder.append("| \n----------------------------------------------\n");
+            stringBuilder.append("|\n----------------------------------------------\n");
         }
         return stringBuilder.toString();
     }
@@ -277,6 +256,7 @@ public class ChessPuzzleState {
     // CHECKSTYLE:OFF
     public static void main(String[] args) {
         ChessPuzzleState chessPuzzleState = new ChessPuzzleState();
+        chessPuzzleState.setInitialState();
         System.out.println(chessPuzzleState);
     }
 }

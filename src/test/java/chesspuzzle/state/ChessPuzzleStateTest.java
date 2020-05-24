@@ -13,6 +13,11 @@ class ChessPuzzleStateTest {
         );
     }
 
+    private void assertRandomGoalState(ChessPuzzleState chessPuzzleState){
+        chessPuzzleState.setInitialState();
+        assertTrue(chessPuzzleState.isGoalState());
+    }
+
     @Test
     void testIsGoalState() {
 
@@ -20,26 +25,29 @@ class ChessPuzzleStateTest {
         state.setInitialState();
         assertFalse(state.isGoalState());
 
-
-        assertTrue(new ChessPuzzleState(new int[]{0,0},
+        state = new ChessPuzzleState(new int[]{0,0},
                 new int[]{0,1}, new int[]{1,2},
                 new int[]{1,0}, new int[]{1,1},
-                new int[]{0,2}).isGoalState());
+                new int[]{0,2});
+        assertRandomGoalState(state);
 
-        assertTrue(new ChessPuzzleState(new int[]{0,0},
+        state = new ChessPuzzleState(new int[]{0,0},
                 new int[]{0,1}, new int[]{1,2},
                 new int[]{1,1}, new int[]{1,0},
-                new int[]{0,2}).isGoalState());
+                new int[]{0,2});
+        assertRandomGoalState(state);
 
-        assertTrue(new ChessPuzzleState(new int[]{0,1},
+        state = new ChessPuzzleState(new int[]{0,1},
                 new int[]{0,0}, new int[]{1,2},
                 new int[]{1,0}, new int[]{1,1},
-                new int[]{0,2}).isGoalState());
+                new int[]{0,2});
+        assertRandomGoalState(state);
 
-        assertTrue(new ChessPuzzleState(new int[]{0,1},
+        state = new ChessPuzzleState(new int[]{0,1},
                 new int[]{0,0}, new int[]{1,2},
                 new int[]{1,1}, new int[]{1,0},
-                new int[]{0,2}).isGoalState());
+                new int[]{0,2});
+        assertRandomGoalState(state);
     }
 
     @Test
@@ -95,9 +103,9 @@ class ChessPuzzleStateTest {
         stringBuilder.append("----------------------------------------------\n");
         for (int i=0; i<2;i++){
             for(int j=0;j<3;j++){
-                stringBuilder.append("| ").append(state.getCurrentState()[i][j]);
+                stringBuilder.append("|").append(state.getCurrentState()[i][j]);
             }
-            stringBuilder.append("| \n----------------------------------------------\n");
+            stringBuilder.append("|\n----------------------------------------------\n");
         }
 
         assertEquals(stringBuilder.toString(), state.toString());
