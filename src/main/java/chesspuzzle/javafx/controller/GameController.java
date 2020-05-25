@@ -127,7 +127,7 @@ public class GameController {
         gameState = loadSave.getChessPuzzleState();
         gameState.setInitialState();
         steps.set(loadSave.getPlayerData().getSteps());
-        startTime = Instant.now().minusMillis(10000);
+        startTime = Instant.now().minusMillis(1500 * steps.get());
         gameOver.setValue(false);
         displayGameState();
         createStopWatch();
