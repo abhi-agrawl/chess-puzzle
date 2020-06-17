@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>hu.unideb.inf</groupId>
+    <groupId>in.hackhunt.co</groupId>
     <artifactId>chess-puzzle</artifactId>
     <version>1.0</version>
     <description>The chess puzzle game.</description>
@@ -15,9 +15,9 @@
         <developer>
             <id>abhi-agrawl</id>
             <name>Abhishek Agrawal</name>
-            <email>abhi@mailbox.unideb.hu</email>
-            <organization>University of Debrecen</organization>
-            <organizationUrl>https://inf.unideb.hu/</organizationUrl>
+            <email>abhishekagrawal9696@gmail.com</email>
+            <organization>Hack Hunt</organization>
+            <organizationUrl>https://hackhunt.co.in</organizationUrl>
         </developer>
     </developers>
     <properties>
